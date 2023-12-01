@@ -1,0 +1,2 @@
+const customers = [];
+export { customers };
