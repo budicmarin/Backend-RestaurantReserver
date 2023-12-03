@@ -1,5 +1,19 @@
 import { workers } from "../Models/workersModel.js";
 
-export const workersMethods = {
+function getWorkers() {
+    return workers;
+}
 
+function getWorker(id) {
+    return workers.find(x => x.id == id);
+}
+function addWorker(newWorker) {
+    workers.push(newWorker);
+    return;
+}
+
+export const workersMethods = {
+    getWorkers,
+    getWorker,
+    addWorker
 }
