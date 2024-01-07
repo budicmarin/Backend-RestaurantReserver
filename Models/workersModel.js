@@ -1,2 +1,0 @@
-const workers = [];
-export { workers };

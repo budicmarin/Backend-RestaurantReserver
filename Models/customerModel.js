@@ -1,2 +1,0 @@
-const customers = [];
-export { customers };
