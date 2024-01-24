@@ -1,4 +1,4 @@
-import db from "../db/connection.js";
+import db from "../src/db.js";
 
 const gostiCollection = db.collection("Gosti");
 
