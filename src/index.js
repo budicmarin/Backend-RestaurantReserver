@@ -31,6 +31,30 @@ app.get("/gost/:id", (req, res) => {
   res.json([{ id: 5 }]);
 });
 
+app.post("/auth", async (req, res) => {
+  let gost = req.body;
+  let email = gost.email;
+  let password = gost.password;
+
+  try {
+    let result = await auth.authenticateGost(email, password);
+    res.status(201).json(result);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+app.post("/gost", async (req, res) => {
+  let gost = req.body;
+
+  try {
+    let result = await auth.registerGost(gost);
+    res.status(201).send();
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 // Pozivanje nekih osnovnih operacija radi provjere konekcije
 // sa MongomDB
 
