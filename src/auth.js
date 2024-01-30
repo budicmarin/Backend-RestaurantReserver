@@ -36,14 +36,14 @@ export default {
       gost.password &&
       (await bcrypt.compare(password, gost.password))
     ) {
-      delete gost.password;
+      delete gostData.password;
       let token = jwt.sign(gost, process.env.JWT_SECRET, {
         algorithm: "HS256",
         expiresIn: "1 week",
       });
       return {
         token,
-        email: gost.email,
+        email: gostData.email,
       };
     } else {
       throw new Error("Cannot authenticate");
