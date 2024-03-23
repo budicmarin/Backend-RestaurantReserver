@@ -17,7 +17,7 @@ export const getGostById = async (req, res) => {
   const gostId = req.params.id;
 
   try {
-    const gost = await gostiCollection.findOne({ id: gostId });
+    const gost = await gostiCollection.findOne({ _id: new ObjectId(gostId) });
     if (!gost) {
       return res.status(404).json({ message: "Odabrani gost nije pronađen." });
     }

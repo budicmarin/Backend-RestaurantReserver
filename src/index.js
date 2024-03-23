@@ -5,53 +5,45 @@ import { radniciMethods } from "../Handlers/radniciHandler.js";
 import { gostiMethods } from "../Handlers/gostiHandler.js";
 import { ocjeneMethods } from "../Handlers/ocjeneHandler.js";
 import { piceMethods } from "../Handlers/piceHandler.js";
+import cors from "cors";
+import dotenv from "dotenv";
 
 const app = express(); // instanciranje aplikacije
 const port = 3000; // port na kojem će web server slušati
 
 app.use(express.json());
+app.use(cors());
 
-app.get("/", (req, res) => res.send("Hello World"));
-
-app.post("/gosti", async (req, res) => {
-  const gostData = req.body;
-  try {
-    const gost = await auth.registerGost(gostData);
-    res.status(200).json({ message: "Registracija uspješna." });
-  } catch (error) {
-    res.status(500).json({ error: "Niste se uspjeli registrirati." });
-  }
+app.get("/tajna", [auth.verify], (req, res) => {
+  res.json({ message: "Ovo je tajna " + req.jwt.email });
 });
 
-app.post("/registracija", (req, res) => {
-  res.status(201).send({ message: "OK" });
-});
-
-app.get("/gost/:id", (req, res) => {
-  res.json([{ id: 5 }]);
+app.get("/tajna", (res, req) => {
+  res.json({ message: "Tajna" + req.jwt.email });
 });
 
 app.post("/auth", async (req, res) => {
-  let gost = req.body;
-  let email = gost.email;
-  let password = gost.password;
-
+  let gostData = req.body;
   try {
-    let result = await auth.authenticateGost(email, password);
-    res.status(201).json(result);
-  } catch (e) {
-    res.status(500).json({ error: e.message });
+    const result = await auth.authenticateGost(
+      gostData.email,
+      gostData.password
+    );
+    return res.json(result);
+    return res.json({ token: result.token });
+  } catch (error) {
+    return res.status(403).json({ error: error.message });
   }
 });
 
-app.post("/gost", async (req, res) => {
-  let gost = req.body;
+app.post("/gosti", async (req, res) => {
+  let gostData = req.body;
 
   try {
-    let result = await auth.registerGost(gost);
-    res.status(201).send();
+    let result = await auth.registerGost(gostData);
+    res.json(result);
   } catch (e) {
-    res.status(500).json({ error: e.message });
+    res.status(500).json({ error: "Email već postoji." });
   }
 });
 
