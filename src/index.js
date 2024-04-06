@@ -41,10 +41,14 @@ app.post("/gosti", async (req, res) => {
   let gostData = req.body;
 
   try {
-    let result = await auth.registerGost(gostData);
-    res.json(result);
+    await auth.registerGost(gostData);
+    res.status(201).json({ message: "Gost je uspješno dodan." });
   } catch (e) {
-    res.status(500).json({ error: "Email već postoji." });
+    if (e.message === "Email already exists") {
+      res.status(409).json({ error: e.message });
+    } else {
+      res.status(500).json({ error: "Internal Server Error" });
+    }
   }
 });
 
