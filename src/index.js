@@ -13,6 +13,7 @@ const port = 3000; // port na kojem će web server slušati
 
 app.use(express.json());
 app.use(cors());
+dotenv.config();
 
 app.get("/tajna", [auth.verify], (req, res) => {
   res.json({ message: "Ovo je tajna " + req.jwt.email });
