@@ -5,6 +5,7 @@ import { radniciMethods } from "../Handlers/radniciHandler.js";
 import { gostiMethods } from "../Handlers/gostiHandler.js";
 import { ocjeneMethods } from "../Handlers/ocjeneHandler.js";
 import { piceMethods } from "../Handlers/piceHandler.js";
+const gostiCollection = db.collection("Gosti");
 import cors from "cors";
 import dotenv from "dotenv";
 
@@ -46,6 +47,52 @@ app.post("/gosti", async (req, res) => {
     res.status(500).json({ error: "Email već postoji." });
   }
 });
+/*
+app.post("/changePass", async (req, res) => {
+  let gostEmail = req.body.email;
+  let gostNewPassword = req.body.password;
+  try {
+    let gostData = gostiCollection.findOne({ email: gostEmail });
+    if (!userData) {
+      return res.status(404).json({ message: "User not found." });
+    }
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update user's password in the database
+    await gostiCollection.updateOne(
+      { email: gostEmail },
+      { $set: { password: hashedNewPassword } }
+    );
+  } catch (error) {}
+});*/
+
+app.post("/changePass", async (req, res) => {
+  let gostEmail = req.body.email;
+  let gostNewPassword = req.body.password;
+  try {
+    // Find the user by email
+    let gostData = await gostiCollection.findOne({ email: gostEmail });
+    if (!gostData) {
+      // If user not found, return 404
+      return res.status(404).json({ message: "User not found." });
+    }
+    // Hash the new password
+    const hashedNewPassword = await bcrypt.hash(gostNewPassword, 10);
+
+    // Update user's password in the database
+    await gostiCollection.updateOne(
+      { email: gostEmail },
+      { $set: { password: hashedNewPassword } }
+    );
+
+    // Send a success response
+    return res.status(200).json({ message: "Password changed successfully." });
+  } catch (error) {
+    // Handle any errors
+    console.error("Error changing password:", error);
+    return res.status(500).json({ message: "Internal server error." });
+  }
+});
 
 // Pozivanje nekih osnovnih operacija radi provjere konekcije
 // sa MongomDB
@@ -57,7 +104,7 @@ app.delete("/radnici/:id", radniciMethods.deleteRadnik);
 
 app.get("/gosti", gostiMethods.getAllGosti);
 app.get("/gosti/:id", gostiMethods.getGostById);
-//app.post("/gosti", gostiMethods.newGost);
+app.post("/gosti", gostiMethods.newGost);
 app.delete("/gosti/:id", gostiMethods.deleteGost);
 
 app.get("/ocjene", ocjeneMethods.getAllOcjene);

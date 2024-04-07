@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backend RestaurantReserver",
   "main": "index.js",
   "type": "module",
   "scripts": {
