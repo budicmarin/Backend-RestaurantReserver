@@ -8,6 +8,8 @@ import { piceMethods } from "../Handlers/piceHandler.js";
 const gostiCollection = db.collection("Gosti");
 import cors from "cors";
 import dotenv from "dotenv";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const app = express(); // instanciranje aplikacije
 const port = 3000; // port na kojem će web server slušati
