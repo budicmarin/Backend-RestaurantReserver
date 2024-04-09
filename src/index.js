@@ -77,25 +77,10 @@ app.post("/changePass", async (req, res) => {
   let gostEmail = req.body.email;
   let gostNewPassword = req.body.password;
   try {
-    // Find the user by email
-    let gostData = await gostiCollection.findOne({ email: gostEmail });
-    if (!gostData) {
-      // If user not found, return 404
-      return res.status(404).json({ message: "User not found." });
-    }
-    // Hash the new password
-    const hashedNewPassword = await bcrypt.hash(gostNewPassword, 10);
+    await auth.changePass(gostEmail, gostNewPassword);
 
-    // Update user's password in the database
-    await gostiCollection.updateOne(
-      { email: gostEmail },
-      { $set: { password: hashedNewPassword } }
-    );
-
-    // Send a success response
     return res.status(200).json({ message: "Password changed successfully." });
   } catch (error) {
-    // Handle any errors
     console.error("Error changing password:", error);
     return res.status(500).json({ message: "Internal server error." });
   }
@@ -105,12 +90,14 @@ app.post("/changePass", async (req, res) => {
 // sa MongomDB
 
 app.get("/radnici", radniciMethods.getAllRadnici);
-app.get("/radnici/:id", radniciMethods.getRadnikById);
+app.get("/radnici/id/:id", radniciMethods.getRadnikById);
+app.get("/radnici/email/:email", radniciMethods.getRadnikByEmail);
 app.post("/radnici", radniciMethods.newRadnik);
 app.delete("/radnici/:id", radniciMethods.deleteRadnik);
 
 app.get("/gosti", gostiMethods.getAllGosti);
-app.get("/gosti/:id", gostiMethods.getGostById);
+app.get("/gosti/id/:id", gostiMethods.getGostById);
+app.get("/gosti/email/:email", gostiMethods.getGostByEmail);
 app.post("/gosti", gostiMethods.newGost);
 app.delete("/gosti/:id", gostiMethods.deleteGost);
 

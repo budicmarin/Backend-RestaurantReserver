@@ -3,6 +3,7 @@ import db from "./db.js";
 import { ObjectId } from "mongodb";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { error } from "console";
 
 const gostiCollection = db.collection("Gosti");
 
@@ -54,6 +55,19 @@ export default {
       };
     } else {
       throw new Error("Cannot authenticate");
+    }
+  },
+  async changePass(email, newPassword) {
+    let gostData = await gostiCollection.findOne({ email: email });
+    if (!gostData) {
+      throw new error("Nemogu pronaći gosta");
+    } else {
+      const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+      await gostiCollection.updateOne(
+        { email: email },
+        { $set: { password: hashedNewPassword } }
+      );
+      return email;
     }
   },
 

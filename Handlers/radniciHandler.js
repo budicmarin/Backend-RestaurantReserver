@@ -1,4 +1,5 @@
 import db from "../src/db.js";
+import { ObjectId } from "mongodb";
 
 const radniciCollection = db.collection("Radnici");
 
@@ -12,7 +13,7 @@ export const getAllRadnici = async (req, res) => {
   }
 };
 
-//Traženje samo jednog radnika
+//Traženje samo jednog radnika po ID-u
 export const getRadnikById = async (req, res) => {
   const radnikId = req.params.id;
 
@@ -28,8 +29,25 @@ export const getRadnikById = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+//Pronalaženje  Radnika po Emailu
 
-// Dodavanje novog gosta
+export const getRadnikByEmail = async (req, res) => {
+  const radnikEmail = req.params.email;
+
+  try {
+    const radnik = await radniciCollection.findOne({ email: radnikEmail });
+    if (!radnik) {
+      return res
+        .status(404)
+        .json({ message: "Odabrani radnik nije pronađen." });
+    }
+    res.json(radnik);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Dodavanje novog radnika
 export const newRadnik = async (req, res) => {
   const { id, ime, prezime, godiste, role } = req.body;
   try {
@@ -68,6 +86,7 @@ export const deleteRadnik = async (req, res) => {
 export const radniciMethods = {
   getAllRadnici,
   getRadnikById,
+  getRadnikByEmail,
   newRadnik,
   deleteRadnik,
 };

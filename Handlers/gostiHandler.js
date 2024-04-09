@@ -1,4 +1,5 @@
 import db from "../src/db.js";
+import { ObjectId } from "mongodb";
 
 const gostiCollection = db.collection("Gosti");
 
@@ -18,6 +19,19 @@ export const getGostById = async (req, res) => {
 
   try {
     const gost = await gostiCollection.findOne({ _id: new ObjectId(gostId) });
+    if (!gost) {
+      return res.status(404).json({ message: "Odabrani gost nije pronađen." });
+    }
+    res.json(gost);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+//Traženje gosta pomoću Emaila
+export const getGostByEmail = async (req, res) => {
+  const gostEmail = req.params.email;
+  try {
+    const gost = await gostiCollection.findOne({ email: gostEmail });
     if (!gost) {
       return res.status(404).json({ message: "Odabrani gost nije pronađen." });
     }
@@ -66,6 +80,7 @@ export const deleteGost = async (req, res) => {
 export const gostiMethods = {
   getAllGosti,
   getGostById,
+  getGostByEmail,
   newGost,
   deleteGost,
 };
