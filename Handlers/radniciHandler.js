@@ -83,10 +83,38 @@ export const deleteRadnik = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+export const updateRadnik = async (req, res) => {
+  try {
+    const radniciData = req.body;
+    let radnikDataBase = await radniciCollection.findOne({
+      id: radniciData.id,
+    });
+    if (!radnikDataBase) {
+      throw new Error("Nemogu pronaći radnika");
+    } else {
+      await radniciCollection.updateOne(
+        { id: radniciData.id },
+        {
+          $set: {
+            ime: radniciData.ime,
+            prezime: radniciData.prezime,
+            godiste: radniciData.godiste,
+            role: radniciData.role,
+          },
+        }
+      );
+      res.send("Radnik je uspješno ažuriran.");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Dogodila se greška prilikom ažuriranja radnika.");
+  }
+};
 export const radniciMethods = {
   getAllRadnici,
   getRadnikById,
   getRadnikByEmail,
   newRadnik,
+  updateRadnik,
   deleteRadnik,
 };

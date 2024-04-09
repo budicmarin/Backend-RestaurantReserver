@@ -33,7 +33,7 @@ app.post("/auth", async (req, res) => {
       gostData.email,
       gostData.password
     );
-    return res.json(result);
+
     return res.json({ token: result.token });
   } catch (error) {
     return res.status(403).json({ error: error.message });
@@ -94,6 +94,7 @@ app.get("/radnici/id/:id", radniciMethods.getRadnikById);
 app.get("/radnici/email/:email", radniciMethods.getRadnikByEmail);
 app.post("/radnici", radniciMethods.newRadnik);
 app.delete("/radnici/:id", radniciMethods.deleteRadnik);
+app.put("/radnici", radniciMethods.updateRadnik);
 
 app.get("/gosti", gostiMethods.getAllGosti);
 app.get("/gosti/id/:id", gostiMethods.getGostById);
