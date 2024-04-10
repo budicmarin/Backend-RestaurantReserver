@@ -5,6 +5,7 @@ import { radniciMethods } from "../Handlers/radniciHandler.js";
 import { gostiMethods } from "../Handlers/gostiHandler.js";
 import { ocjeneMethods } from "../Handlers/ocjeneHandler.js";
 import { piceMethods } from "../Handlers/piceHandler.js";
+import { rezervacijaMethods } from "../Handlers/rezervacijaHandler.js";
 const gostiCollection = db.collection("Gosti");
 import cors from "cors";
 import dotenv from "dotenv";
@@ -112,4 +113,9 @@ app.get("/pice/:id", piceMethods.getPiceById);
 app.post("/pice", piceMethods.newPice);
 app.delete("/pice/:id", piceMethods.deletePice);
 
+app.get("/rezervacije", rezervacijaMethods.getAllRezervacije);
+app.get("/rezervacije/:id", rezervacijaMethods.getRezervacijaById);
+app.get("/rezervacije/:gostId", rezervacijaMethods.getRezervacijaByGostId);
+app.post("/rezervacije", rezervacijaMethods.newRezervacija);
+app.delete("/rrezervacije/:id");
 app.listen(port, () => console.log(`Slušam na portu ${port}!`));
