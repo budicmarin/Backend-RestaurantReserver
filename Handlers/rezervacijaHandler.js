@@ -29,9 +29,11 @@ export const getRezervacijaById = async (req, res) => {
 export const getRezervacijaByGostId = async (req, res) => {
   const gostId = req.params.id;
   try {
-    const rezevacija = await rezervacijaCollection.find({
-      gostId: gostId,
-    });
+    const rezevacija = await rezervacijaCollection
+      .find({
+        gostId: gostId,
+      })
+      .toArray();
     if (!rezevacija) {
       return res
         .status(404)
