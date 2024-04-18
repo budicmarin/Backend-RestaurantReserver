@@ -115,7 +115,7 @@ app.delete("/pice/:id", piceMethods.deletePice);
 
 app.get("/rezervacije", rezervacijaMethods.getAllRezervacije);
 app.get("/rezervacije/:id", rezervacijaMethods.getRezervacijaById);
-app.get("/rezervacije/gost/:gostId", rezervacijaMethods.getRezervacijaByGostId);
+app.get("/rezervacije/gost/:id", rezervacijaMethods.getRezervacijaByGostId);
 app.post("/rezervacije", rezervacijaMethods.newRezervacija);
 app.delete("/rrezervacije/:id");
 app.listen(port, () => console.log(`Slušam na portu ${port}!`));
