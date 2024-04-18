@@ -34,11 +34,13 @@ export const getRezervacijaByGostId = async (req, res) => {
         gostId: gostId,
       })
       .toArray();
+
     if (!rezevacija) {
       return res
         .status(404)
         .json({ message: "Odabrana rezervacija nije pronađena" });
     }
+    console.log(rezevacija);
     res.json(rezevacija);
   } catch (error) {
     res.status(500).json({ error: error.message });
