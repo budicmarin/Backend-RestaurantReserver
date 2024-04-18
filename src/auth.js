@@ -18,6 +18,7 @@ export default {
         firstName: gostData.firstName,
         lastName: gostData.lastName,
         email: gostData.email,
+        phoneNumber: gostData.phoneNumber,
         password: hashedPassword,
       });
     } catch (e) {
