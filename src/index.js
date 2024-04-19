@@ -117,5 +117,6 @@ app.get("/rezervacije", rezervacijaMethods.getAllRezervacije);
 app.get("/rezervacije/:id", rezervacijaMethods.getRezervacijaById);
 app.get("/rezervacije/gost/:id", rezervacijaMethods.getRezervacijaByGostId);
 app.post("/rezervacije", rezervacijaMethods.newRezervacija);
-app.delete("/rezervacije/:id");
+app.delete("/rezervacije/:id", rezervacijaMethods.deleteRezervacija);
+
 app.listen(port, () => console.log(`Slušam na portu ${port}!`));

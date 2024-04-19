@@ -78,9 +78,11 @@ export const deleteRezervacija = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 export const rezervacijaMethods = {
   getAllRezervacije,
   getRezervacijaById,
   getRezervacijaByGostId,
   newRezervacija,
+  deleteRezervacija,
 };
