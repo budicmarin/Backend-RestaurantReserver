@@ -1,5 +1,5 @@
 import db from "../src/db.js";
-import { ObjectId } from "mongodb";
+import { Collection, ObjectId } from "mongodb";
 
 const rezervacijaCollection = db.collection("Rezervacija");
 export const getAllRezervacije = async (req, res) => {
@@ -78,6 +78,30 @@ export const deleteRezervacija = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+export const ocjenaRezervacije = async (req, res) => {
+  try {
+    const rezervacijaData = req.body;
+    let rezervacijaDataBase = await rezervacijaCollection.findOne({
+      _id: new ObjectId(rezervacijaData.id),
+    });
+    if (!rezervacijaDataBase) {
+      throw new Error("Nemogu pronaći rezervaciju");
+    } else {
+      await rezervacijaCollection.updateOne(
+        { _id: new ObjectId(rezervacijaData.id) },
+        {
+          $set: {
+            ocjena: rezervacijaData.ocjena,
+          },
+        }
+      );
+      res.send("Rezervacija je ocjenjena");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Dogodila se greška prilikom ažuriranja rezervacije");
+  }
+};
 
 export const rezervacijaMethods = {
   getAllRezervacije,
@@ -85,4 +109,5 @@ export const rezervacijaMethods = {
   getRezervacijaByGostId,
   newRezervacija,
   deleteRezervacija,
+  ocjenaRezervacije,
 };
