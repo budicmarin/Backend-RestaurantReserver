@@ -96,6 +96,7 @@ export const ocjenaRezervacije = async (req, res) => {
         }
       );
       res.send("Rezervacija je ocjenjena");
+      console.log("Nova occjena je ", rezervacijaData.ocjena);
     }
   } catch (error) {
     console.error(error);
