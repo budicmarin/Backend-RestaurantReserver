@@ -47,7 +47,7 @@ export const getRezervacijaByGostId = async (req, res) => {
   }
 };
 export const newRezervacija = async (req, res) => {
-  const { gostId, datum, vrijeme, brojStolova, napomena } = req.body;
+  const { gostId, datum, vrijeme, brojStolova, napomena, ocjena } = req.body;
   try {
     const result = await rezervacijaCollection.insertOne({
       gostId,
@@ -55,6 +55,7 @@ export const newRezervacija = async (req, res) => {
       vrijeme,
       brojStolova,
       napomena,
+      ocjena,
     });
     res.status(201).json({
       message: "Rezervacija je uspiješno dodana",
