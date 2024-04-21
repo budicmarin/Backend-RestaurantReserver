@@ -52,23 +52,23 @@ app.post("/gosti", async (req, res) => {
   }
 });
 /*
-app.post("/changePass", async (req, res) => {
-  let gostEmail = req.body.email;
-  let gostNewPassword = req.body.password;
-  try {
-    let gostData = gostiCollection.findOne({ email: gostEmail });
-    if (!userData) {
-      return res.status(404).json({ message: "User not found." });
-    }
-    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+  app.post("/changePass", async (req, res) => {
+    let gostEmail = req.body.email;
+    let gostNewPassword = req.body.password;
+    try {
+      let gostData = gostiCollection.findOne({ email: gostEmail });
+      if (!userData) {
+        return res.status(404).json({ message: "User not found." });
+      }
+      const hashedNewPassword = await bcrypt.hash(newPassword, 10);
 
-    // Update user's password in the database
-    await gostiCollection.updateOne(
-      { email: gostEmail },
-      { $set: { password: hashedNewPassword } }
-    );
-  } catch (error) {}
-});*/
+      // Update user's password in the database
+      await gostiCollection.updateOne(
+        { email: gostEmail },
+        { $set: { password: hashedNewPassword } }
+      );
+    } catch (error) {}
+  });*/
 
 app.post("/changePass", async (req, res) => {
   let gostEmail = req.body.email;

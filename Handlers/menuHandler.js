@@ -22,7 +22,9 @@ export const getMenuById = async (req, res) => {
     }
     res.json(menu);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    if (!res.headersSent) {
+      res.status(500).json({ error: error.message });
+    }
   }
 };
 // Dodavanje novog menu-a
