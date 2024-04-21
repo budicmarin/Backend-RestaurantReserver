@@ -1,12 +1,10 @@
 import express from "express";
-import db from "./db.js";
 import auth from "./auth.js";
 import { radniciMethods } from "../Handlers/radniciHandler.js";
 import { gostiMethods } from "../Handlers/gostiHandler.js";
 import { ocjeneMethods } from "../Handlers/ocjeneHandler.js";
-import { piceMethods } from "../Handlers/piceHandler.js";
+import { menuMethods } from "../Handlers/menuHandler.js";
 import { rezervacijaMethods } from "../Handlers/rezervacijaHandler.js";
-const gostiCollection = db.collection("Gosti");
 import cors from "cors";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
@@ -108,10 +106,10 @@ app.get("/ocjene/:id", ocjeneMethods.getOcjenaById);
 app.post("/ocjene", ocjeneMethods.newOcjena);
 app.delete("/ocjene/:id", ocjeneMethods.deleteOcjena);
 
-app.get("/pice", piceMethods.getAllPica);
-app.get("/pice/:id", piceMethods.getPiceById);
-app.post("/pice", piceMethods.newPice);
-app.delete("/pice/:id", piceMethods.deletePice);
+app.get("/menu", menuMethods.getAllMenu);
+app.get("/menu/:id", menuMethods.getMenuById);
+app.post("/menu", menuMethods.newMenu);
+app.delete("/menu/:id", menuMethods.deleteMenu);
 
 app.get("/rezervacije", rezervacijaMethods.getAllRezervacije);
 app.get("/rezervacije/:id", rezervacijaMethods.getRezervacijaById);
