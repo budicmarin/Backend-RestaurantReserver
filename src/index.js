@@ -7,8 +7,6 @@ import { menuMethods } from "../Handlers/menuHandler.js";
 import { rezervacijaMethods } from "../Handlers/rezervacijaHandler.js";
 import cors from "cors";
 import dotenv from "dotenv";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 
 const app = express(); // instanciranje aplikacije
 const port = 3000; // port na kojem će web server slušati
@@ -110,6 +108,7 @@ app.get("/menu", menuMethods.getAllMenu);
 app.get("/menu/:id", menuMethods.getMenuById);
 app.post("/menu", menuMethods.newMenu);
 app.delete("/menu/:id", menuMethods.deleteMenu);
+app.get("/menu/category", menuMethods.getbyMenuFromCategory);
 
 app.get("/rezervacije", rezervacijaMethods.getAllRezervacije);
 app.get("/rezervacije/:id", rezervacijaMethods.getRezervacijaById);
@@ -117,4 +116,5 @@ app.get("/rezervacije/gost/:id", rezervacijaMethods.getRezervacijaByGostId);
 app.post("/rezervacije", rezervacijaMethods.newRezervacija);
 app.delete("/rezervacije/:id", rezervacijaMethods.deleteRezervacija);
 app.put("/rezervacije", rezervacijaMethods.ocjenaRezervacije);
+
 app.listen(port, () => console.log(`Slušam na portu ${port}!`));

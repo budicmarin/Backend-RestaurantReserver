@@ -25,7 +25,6 @@ export const getMenuById = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
 // Dodavanje novog menu-a
 export const newMenu = async (req, res) => {
   const { id, nazivMenua } = req.body;
@@ -59,10 +58,23 @@ export const deleteMenu = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+export const getbyMenuFromCategory = async (req, res) => {
+  try {
+    let query = {};
+    if (req.query.category) {
+      query.category = req.query.category;
+    }
+    const menuItems = await Menu.find(query);
+    res.json(menuItems);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
 
 export const menuMethods = {
   getAllMenu,
   getMenuById,
   newMenu,
   deleteMenu,
+  getbyMenuFromCategory,
 };
