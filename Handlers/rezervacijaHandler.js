@@ -50,6 +50,10 @@ export const newRezervacija = async (req, res) => {
   const { gostId, datum, vrijeme, brojStolova, napomena, ocjena } = req.body;
   try {
     const result = await rezervacijaCollection.insertOne({
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
       gostId,
       datum,
       vrijeme,
