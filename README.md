@@ -11,7 +11,7 @@ Mentor : doc. dr. sc. Nikola Tanković
 
 Link na stranicu: <a href="https://frontend-restaurant-reserver-3dev.vercel.app/">https://frontend-restaurant-reserver-3dev.vercel.app/<a/><br/>
 Link na dokumentaciju:<a href="https://drive.google.com/file/d/1uh3BbGzxK6QEVishJL4kFwtIUTnZlCGq/view?usp=drive_link">RestaurantReserver Dokumentacija WA223.pdf<a/> <br/>
-Link za prezentaciju: <a href="https://drive.google.com/file/d/1W58avnE2Y8lZSmjcoUcF7UFeCDJmY3gu/view?usp=sharing">RestaurantReserver WA223 prezentacija<a/>
+Link za prezentaciju: <a href="https://drive.google.com/file/d/1C4--HR4m8_lvbKU6zlz5VRuOW_al7Lnv/view?usp=sharing">RestaurantReserver WA223 prezentacija<a/>
 
 
 
