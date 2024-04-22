@@ -60,12 +60,6 @@ app.post("/changePass", async (req, res) => {
     return res.status(500).json({ message: "Internal server error." });
   }
 });
-app.get("/radnici", radniciMethods.getAllRadnici);
-app.get("/radnici/id/:id", radniciMethods.getRadnikById);
-app.get("/radnici/email/:email", radniciMethods.getRadnikByEmail);
-app.post("/radnici", radniciMethods.newRadnik);
-app.delete("/radnici/:id", radniciMethods.deleteRadnik);
-app.put("/radnici", radniciMethods.updateRadnik);
 
 app.get("/gosti", gostiMethods.getAllGosti);
 app.get("/gosti/id/:id", gostiMethods.getGostById);

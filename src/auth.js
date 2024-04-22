@@ -29,13 +29,10 @@ export default {
       }
     }
   },
-
   async authenticateGost(email, password) {
     let gostData = await gostiCollection.findOne({ email: email });
-
     console.log("Received data: ", email, password);
     console.log("User data from the database: ", gostData);
-
     if (
       gostData &&
       gostData.password &&
@@ -71,7 +68,6 @@ export default {
       return email;
     }
   },
-
   verify(req, res, next) {
     try {
       let authorization = req.headers.authorization.split(" ");
