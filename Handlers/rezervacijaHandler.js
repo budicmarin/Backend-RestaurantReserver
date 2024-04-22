@@ -48,8 +48,8 @@ export const getRezervacijaByGostId = async (req, res) => {
 };
 export const newRezervacija = async (req, res) => {
   const {
-    firstName,
-    lastName,
+    name,
+    surname,
     email,
     phoneNumber,
     gostId,
@@ -61,8 +61,8 @@ export const newRezervacija = async (req, res) => {
   } = req.body;
   try {
     const result = await rezervacijaCollection.insertOne({
-      firstName,
-      lastName,
+      name,
+      surname,
       email,
       phoneNumber,
       gostId,
