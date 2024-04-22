@@ -1,5 +1,5 @@
 import express from "express";
-import auth from "./auth.js";
+import auth from "..src/auth.js";
 import { radniciMethods } from "../Handlers/radniciHandler.js";
 import { gostiMethods } from "../Handlers/gostiHandler.js";
 import { ocjeneMethods } from "../Handlers/ocjeneHandler.js";
@@ -92,4 +92,5 @@ app.delete("/rezervacije/:id", rezervacijaMethods.deleteRezervacija);
 app.put("/rezervacije", rezervacijaMethods.ocjenaRezervacije);
 
 app.listen(port, () => console.log(`Slušam na portu ${port}!`));
-/*module.exports = app;*/
+
+module.exports = app;
