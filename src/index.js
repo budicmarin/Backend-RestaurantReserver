@@ -1,6 +1,5 @@
 import express from "express";
 import auth from "./auth.js";
-import { radniciMethods } from "../Handlers/radniciHandler.js";
 import { gostiMethods } from "../Handlers/gostiHandler.js";
 import { ocjeneMethods } from "../Handlers/ocjeneHandler.js";
 import { menuMethods } from "../Handlers/menuHandler.js";
